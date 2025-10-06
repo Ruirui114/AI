@@ -1,14 +1,18 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
+
+[RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float jumpForce = 7f;
+    public float moveSpeed = 5f;    // 横移動スピード
+    public float jumpForce = 5f;    // ← ジャンプ力を下げる（7→5など）
+    public Transform groundCheck;   // 足元の接地確認用
+    public float groundRadius = 0.1f;
+    public LayerMask groundLayer;
 
     private Rigidbody2D rb;
-    private Vector2 moveInput;
     private bool isGrounded;
+    private bool isFacingRight = true;
 
     void Start()
     {
@@ -17,33 +21,41 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // ���ړ�
-        rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
-    }
+        // 接地判定
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        moveInput = context.ReadValue<Vector2>();
-    }
+        // 横移動入力
+        float move = Input.GetAxis("Horizontal");
+        rb.linearVelocity = new Vector2(move * moveSpeed, rb.linearVelocity.y);
 
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (context.performed && isGrounded)
+        // ジャンプ
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+
+        // 向き反転
+        if (move > 0 && !isFacingRight)
+            Flip();
+        else if (move < 0 && isFacingRight)
+            Flip();
+    }
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+    }
+
+    // Sceneビューで接地判定を可視化
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-            isGrounded = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-            isGrounded = false;
-    }
-
 }
