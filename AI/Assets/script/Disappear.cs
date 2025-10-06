@@ -8,7 +8,7 @@ public class Disappear : MonoBehaviour
     public Transform spawnPoint;   // 出現位置
     [Header("ブロックの表示時間（秒）")]
     public float duration = 3f;    // 出現している時間
-
+    
     private GameObject spawnedBlock;
     private bool isActive = false;
 
