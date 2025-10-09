@@ -17,14 +17,20 @@ public class Player : MonoBehaviour
     public float wallCheckDistance = 0.2f;
     public LayerMask wallLayer; // 壁はLayerで判定
 
+    public Vector2 respawnPoint; // リスポーン地点
+    public float fallThreshold = -10f; // この高さより下に落ちたらリスポーン
+
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool isTouchingWall;
     private bool isFacingRight = true;
 
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        respawnPoint = transform.position; // 初期位置を記録
     }
 
     void Update()
@@ -56,8 +62,16 @@ public class Player : MonoBehaviour
             Flip();
         else if (move < 0 && isFacingRight)
             Flip();
+        if (transform.position.y < fallThreshold)
+        {
+            Respawn();
+        }
     }
-
+    public void Respawn()
+    {
+        rb.linearVelocity = Vector2.zero; // 落下速度リセット
+        transform.position = respawnPoint; // 元の位置に戻す
+    }
     private void CheckGround()
     {
         // 足元円の中にあるColliderを全部取得

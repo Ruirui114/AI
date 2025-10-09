@@ -2,40 +2,30 @@ using UnityEngine;
 
 public class Disappear : MonoBehaviour
 {
-    [Header("出すブロックのPrefab")]
-    public GameObject blockPrefab; // 出したいブロック（Prefab）
-    [Header("出す位置")]
-    public Transform spawnPoint;   // 出現位置
-    [Header("ブロックの表示時間（秒）")]
-    public float duration = 3f;    // 出現している時間
-    
-    private GameObject spawnedBlock;
-    private bool isActive = false;
+    [Header("出したり消したりするオブジェクト")]
+    public GameObject[] targetObjects;
 
     void Update()
     {
-        // Shiftキーで出現（Input System 不使用）
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        // 左Shiftが押された瞬間にトグル
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (!isActive)
-            {
-                StartCoroutine(SpawnTempBlock());
-            }
+            ToggleObjects();
         }
     }
 
-    private System.Collections.IEnumerator SpawnTempBlock()
+    void ToggleObjects()
     {
-        isActive = true;
+        if (targetObjects == null || targetObjects.Length == 0)
+            return;
 
-        // ブロックを生成
-        spawnedBlock = Instantiate(blockPrefab, spawnPoint.position, Quaternion.identity);
+        // 最初のオブジェクトの状態を基準に反転
+        bool newState = !targetObjects[0].activeSelf;
 
-        // duration 秒待つ
-        yield return new WaitForSeconds(duration);
-
-        // ブロックを消す
-        Destroy(spawnedBlock);
-        isActive = false;
+        foreach (GameObject obj in targetObjects)
+        {
+            if (obj != null)
+                obj.SetActive(newState);
+        }
     }
 }
