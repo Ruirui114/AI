@@ -2,30 +2,41 @@ using UnityEngine;
 
 public class Disappear : MonoBehaviour
 {
-    [Header("出したり消したりするオブジェクト")]
-    public GameObject[] targetObjects;
+    [Header("通常ON/OFFするオブジェクト群")]
+    public GameObject[] normalObjects;
+
+    [Header("逆タイミングで切り替えるオブジェクト群")]
+    public GameObject[] inverseObjects;
+
+    [Header("切り替えキー")]
+    public KeyCode toggleKey = KeyCode.LeftShift;
+
+    private bool isToggled = false; // 現在の状態記録（false = 通常ON）
 
     void Update()
     {
-        // 左Shiftが押された瞬間にトグル
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(toggleKey))
         {
-            ToggleObjects();
+            ToggleAll();
         }
     }
 
-    void ToggleObjects()
+    void ToggleAll()
     {
-        if (targetObjects == null || targetObjects.Length == 0)
-            return;
+        isToggled = !isToggled;
 
-        // 最初のオブジェクトの状態を基準に反転
-        bool newState = !targetObjects[0].activeSelf;
-
-        foreach (GameObject obj in targetObjects)
+        // 通常組（ON→OFF→ON）
+        foreach (GameObject obj in normalObjects)
         {
             if (obj != null)
-                obj.SetActive(newState);
+                obj.SetActive(isToggled);
+        }
+
+        // 逆組（OFF→ON→OFF）
+        foreach (GameObject obj in inverseObjects)
+        {
+            if (obj != null)
+                obj.SetActive(!isToggled);
         }
     }
 }

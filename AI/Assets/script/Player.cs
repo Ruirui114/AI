@@ -10,73 +10,88 @@ public class Player : MonoBehaviour
     [Header("地面チェック（Tag使用）")]
     public Transform groundCheck;
     public float groundRadius = 0.1f;
-    public string groundTag = "Ground"; // 地面のTag名
+    public string groundTag = "Ground";
+    public string iceTag = "Ice";
 
     [Header("壁チェック（Layer使用）")]
     public Transform wallCheck;
     public float wallCheckDistance = 0.2f;
-    public LayerMask wallLayer; // 壁はLayerで判定
+    public LayerMask wallLayer;
 
-    public Vector2 respawnPoint; // リスポーン地点
-    public float fallThreshold = -10f; // この高さより下に落ちたらリスポーン
+    public Vector2 respawnPoint;
+    public float fallThreshold = -10f;
 
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool isTouchingWall;
     private bool isFacingRight = true;
+    private bool isOnIce = false;
 
+    private float iceFriction = 0.96f; // 慣性の残りやすさ（0.9〜0.99）
 
+    private float moveInput;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        respawnPoint = transform.position; // 初期位置を記録
+        respawnPoint = transform.position;
     }
 
     void Update()
     {
-        CheckGround();
-        CheckWall();
+        moveInput = Input.GetAxisRaw("Horizontal");
 
-        float move = Input.GetAxis("Horizontal");
-
-        // 壁に当たってなければ動ける
-        if (!isTouchingWall)
-        {
-            rb.linearVelocity = new Vector2(move * moveSpeed, rb.linearVelocity.y);
-        }
-        else
-        {
-            // 壁に当たってたら横移動を止めて落下
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-        }
-
-        // 地面にいるときだけジャンプ可能
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
 
-        // 向き反転
-        if (move > 0 && !isFacingRight)
-            Flip();
-        else if (move < 0 && isFacingRight)
-            Flip();
+        if (moveInput > 0 && !isFacingRight) Flip();
+        else if (moveInput < 0 && isFacingRight) Flip();
+
         if (transform.position.y < fallThreshold)
         {
             Respawn();
         }
     }
-    public void Respawn()
+
+    // ⭐ ここをFixedUpdateに変更！
+    void FixedUpdate()
     {
-        rb.linearVelocity = Vector2.zero; // 落下速度リセット
-        transform.position = respawnPoint; // 元の位置に戻す
+        CheckGround();
+        CheckWall();
+
+        if (!isTouchingWall)
+        {
+            if (isOnIce)
+            {
+                // 氷の床：入力がない時にゆっくり減速
+                if (Mathf.Abs(moveInput) > 0.1f)
+                {
+                    rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+                }
+                else
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x * iceFriction, rb.linearVelocity.y);
+                }
+            }
+            else
+            {
+                // 通常地面：すぐ止まる
+                rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+            }
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        }
     }
+
     private void CheckGround()
     {
-        // 足元円の中にあるColliderを全部取得
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundRadius);
         isGrounded = false;
+        isOnIce = false;
 
         foreach (Collider2D col in colliders)
         {
@@ -85,27 +100,30 @@ public class Player : MonoBehaviour
                 isGrounded = true;
                 break;
             }
+            else if (col.CompareTag(iceTag))
+            {
+                isGrounded = true;
+                isOnIce = true;
+                break;
+            }
         }
     }
 
     private void CheckWall()
     {
         Vector2 checkDir = isFacingRight ? Vector2.right : Vector2.left;
-        Vector2 wallCheckPos = wallCheck.position + Vector3.up * 0.1f; // 少し上にずらす（地面との誤検出防止）
+        Vector2 wallCheckPos = wallCheck.position + Vector3.up * 0.1f;
 
-        // BoxCastで範囲を広げた判定（幅0.3, 高さ0.8）
         RaycastHit2D hit = Physics2D.BoxCast(
-            wallCheckPos,                   // 中心
-            new Vector2(0.3f, 0.8f),        // サイズ（←ここで当たり範囲を調整）
-            0f,                             // 回転角度
-            checkDir,                       // 方向
-            wallCheckDistance,              // 飛ばす距離
-            wallLayer                       // 対象Layer
+            wallCheckPos,
+            new Vector2(0.3f, 0.8f),
+            0f,
+            checkDir,
+            wallCheckDistance,
+            wallLayer
         );
 
         isTouchingWall = (hit.collider != null);
-
-        //isTouchingWall = Physics2D.Raycast(wallCheckPos, checkDir, wallCheckDistance, wallLayer);
     }
 
     private void Flip()
@@ -115,21 +133,16 @@ public class Player : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
-
-    private void OnDrawGizmosSelected()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (groundCheck != null)
+        if (collision.collider.CompareTag("Enemy"))
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+            Respawn();
         }
-
-        if (wallCheck != null)
-        {
-            Gizmos.color = Color.cyan;
-            Vector2 dir = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
-            Vector3 startPos = wallCheck.position + Vector3.up * 0.1f;
-            Gizmos.DrawLine(startPos, startPos + (Vector3)(dir * wallCheckDistance));
-        }
+    }
+    public void Respawn()
+    {
+        rb.linearVelocity = Vector2.zero;
+        transform.position = respawnPoint;
     }
 }
