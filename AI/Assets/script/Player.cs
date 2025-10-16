@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
-
+    public bool canJump = true;
     [Header("地面チェック（Tag使用）")]
     public Transform groundCheck;
     public float groundRadius = 0.1f;
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     {
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && canJump)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
