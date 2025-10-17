@@ -2,62 +2,73 @@ using UnityEngine;
 
 public class Fallingfloor : MonoBehaviour
 {
-    [Header("—‚¿‚é°‚ÌƒvƒŒƒnƒu")]
-    public GameObject platformPrefab;
+    private float fallSpeed = 2f;
+    private float lifeTime = 5f;
+    private Rigidbody2D rb;
 
-    [Header("¶¬ŠÔŠui•bj")]
-    public float spawnInterval = 2f;
+    public string playerTag = "Player";
 
-    [Header("—‚¿‚éƒXƒs[ƒhi’PˆÊ/•bj")]
-    public float fallSpeed = 2f;
-
-    [Header("°‚ªÁ‚¦‚é‚Ü‚Å‚ÌŠÔi•bj")]
-    public float lifeTime = 5f;
-
-    private float timer;
-
-    void Update()
-    {
-        timer += Time.deltaTime;
-
-        // ˆê’èŠÔŠu‚Å°‚ğ¶¬
-        if (timer >= spawnInterval)
-        {
-            SpawnPlatform();
-            timer = 0f;
-        }
-    }
-
-    void SpawnPlatform()
-    {
-        // ƒXƒ|ƒi[‚ÌˆÊ’u‚É°‚ğ¶¬
-        GameObject platform = Instantiate(platformPrefab, transform.position, Quaternion.identity);
-
-        // ¶¬‚µ‚½°‚ğ§Œä‚·‚é‚½‚ß‚ÌƒXƒNƒŠƒvƒg‚ğ’Ç‰Á
-        platform.AddComponent<FallingPlatformMove>().Setup(fallSpeed, lifeTime);
-    }
-}
-public class FallingPlatformMove : MonoBehaviour
-{
-    private float fallSpeed;
-    private float lifeTime;
-
-    // ƒpƒ‰ƒ[ƒ^‚ğƒZƒbƒg‚·‚éŠÖ”
     public void Setup(float speed, float time)
     {
         fallSpeed = speed;
         lifeTime = time;
+
+        // æŒ‡å®šæ™‚é–“å¾Œã«æ¶ˆæ»…
+        Destroy(gameObject, lifeTime);
     }
 
     void Start()
     {
-        // ˆê’èŠÔŒã‚É©“®íœ
-        Destroy(gameObject, lifeTime);
+        // Rigidbodyã‚’ç¢ºä¿ãƒ»è¨­å®š
+        rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody2D>();
+        }
+
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.gravityScale = 0f;
+        rb.freezeRotation = true;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        // Move‚Å‰º•ûŒü‚ÉˆÚ“®
-        transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
+        // Rigidbodyã§ä¸‹æ–¹å‘ã«æ»‘ã‚‰ã‹ã«ç§»å‹•
+        Vector2 newPosition = rb.position + Vector2.down * fallSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(newPosition);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag(playerTag)) return;
+
+        ContactPoint2D contact = collision.contacts[0];
+        Vector2 normal = contact.normal;
+
+        Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+
+        if (normal.y > 0.5f)
+        {
+            // ä¸Šã‹ã‚‰ä¹—ã£ãŸæ™‚ â†’ è¦ªå­åŒ–ã—ã¦ã‚¬ã‚¯ã‚¬ã‚¯é˜²æ­¢
+            collision.transform.SetParent(transform);
+        }
+        else
+        {
+            // æ¨ªãƒ»ä¸‹ã‹ã‚‰å½“ãŸã£ãŸæ™‚ â†’ ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ä¸‹ã«è½ã¨ã™
+            if (playerRb != null)
+            {
+                playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, -8f);
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag(playerTag)) return;
+
+        if (collision.transform.parent == transform)
+        {
+            collision.transform.SetParent(null);
+        }
     }
 }
