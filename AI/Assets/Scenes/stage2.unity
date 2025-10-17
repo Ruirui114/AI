@@ -317,6 +317,54 @@ MonoBehaviour:
   moveRange: 1.5
   playerTag: Player
   respawnPoint: {fileID: 230182129}
+--- !u!1 &429943699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 429943701}
+  - component: {fileID: 429943700}
+  m_Layer: 0
+  m_Name: GameObject (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &429943700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429943699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ceb8d472162304da92571ca60c6536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformPrefab: {fileID: 4501433843104071418, guid: 76740574bf60f0443a3da147624ec3a0, type: 3}
+  spawnInterval: 5
+  fallSpeed: 1
+  lifeTime: 18
+--- !u!4 &429943701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429943699}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 29.51, y: 6.28, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &452615513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -582,7 +630,7 @@ Transform:
   m_GameObject: {fileID: 918312225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.0445, y: 5.29, z: 0}
+  m_LocalPosition: {x: 19.34, y: 5.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -600,10 +648,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ceb8d472162304da92571ca60c6536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPrefab: {fileID: 0}
-  spawnInterval: 2
-  fallSpeed: 2
-  lifeTime: 5
+  platformPrefab: {fileID: 4501433843104071418, guid: 76740574bf60f0443a3da147624ec3a0, type: 3}
+  spawnInterval: 5
+  fallSpeed: 1
+  lifeTime: 13
 --- !u!1 &1421622049
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +1016,54 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 172189559}
   m_SourcePrefab: {fileID: 100100000, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+--- !u!1 &1990456411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1990456413}
+  - component: {fileID: 1990456412}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1990456412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990456411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ceb8d472162304da92571ca60c6536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformPrefab: {fileID: 4501433843104071418, guid: 76740574bf60f0443a3da147624ec3a0, type: 3}
+  spawnInterval: 5
+  fallSpeed: 1
+  lifeTime: 18
+--- !u!4 &1990456413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990456411}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.4, y: 7.38, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2058465515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1111,3 +1207,5 @@ SceneRoots:
   - {fileID: 1842293390}
   - {fileID: 197278926}
   - {fileID: 918312227}
+  - {fileID: 1990456413}
+  - {fileID: 429943701}
