@@ -192,6 +192,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8943301523431823886, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+      propertyPath: m_Color.b
+      value: 0.10958432
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943301523431823886, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+      propertyPath: m_Color.g
+      value: 0.99215686
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943301523431823886, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+      propertyPath: m_Color.r
+      value: 0.03529412
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6414023252145291918, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
     m_RemovedGameObjects: []
@@ -212,6 +224,10 @@ PrefabInstance:
     - target: {fileID: 685544419256228673, guid: 580e40c2597d0f741b8dab60e4f188b0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670376053676219884, guid: 580e40c2597d0f741b8dab60e4f188b0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4128800230521004648, guid: 580e40c2597d0f741b8dab60e4f188b0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -585,6 +601,18 @@ PrefabInstance:
     - target: {fileID: 3077955759004143827, guid: 897014f48bcfdbb4fb91ac5996125b05, type: 3}
       propertyPath: m_Name
       value: wood_0 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6007080248161592536, guid: 897014f48bcfdbb4fb91ac5996125b05, type: 3}
+      propertyPath: m_Color.b
+      value: 0.0756681
+      objectReference: {fileID: 0}
+    - target: {fileID: 6007080248161592536, guid: 897014f48bcfdbb4fb91ac5996125b05, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6007080248161592536, guid: 897014f48bcfdbb4fb91ac5996125b05, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1539,6 +1567,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: wood_0 (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 6007080248161592536, guid: 897014f48bcfdbb4fb91ac5996125b05, type: 3}
+      propertyPath: m_Color.b
+      value: 0.19688511
+      objectReference: {fileID: 0}
+    - target: {fileID: 6007080248161592536, guid: 897014f48bcfdbb4fb91ac5996125b05, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6007080248161592536, guid: 897014f48bcfdbb4fb91ac5996125b05, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1709,6 +1749,18 @@ PrefabInstance:
     - target: {fileID: 6802377490864356160, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943301523431823886, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16522
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943301523431823886, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+      propertyPath: m_Color.g
+      value: 0.99215686
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943301523431823886, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+      propertyPath: m_Color.r
+      value: 0.03529412
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6414023252145291918, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
@@ -1944,6 +1996,18 @@ PrefabInstance:
     - target: {fileID: 6802377490864356160, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943301523431823886, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943301523431823886, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943301523431823886, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}
+      propertyPath: m_Color.r
+      value: 0.09180176
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6414023252145291918, guid: 78c59db7962d09243ab4d19f6d4d1f65, type: 3}

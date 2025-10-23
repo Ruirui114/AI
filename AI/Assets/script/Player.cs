@@ -145,4 +145,9 @@ public class Player : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         transform.position = respawnPoint;
     }
+    public void SetCheckpoint(Vector2 newPoint)
+    {
+        respawnPoint = newPoint;
+    }
 }
+
