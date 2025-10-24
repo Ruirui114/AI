@@ -1362,10 +1362,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1600, y: 900}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1442,12 +1442,20 @@ PrefabInstance:
       value: image (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 277.1239
+      objectReference: {fileID: 0}
+    - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100.36865
+      objectReference: {fileID: 0}
+    - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2435
+      value: 3568
       objectReference: {fileID: 0}
     - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: 8.4
       objectReference: {fileID: 0}
     - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1877,12 +1885,20 @@ PrefabInstance:
       value: image
       objectReference: {fileID: 0}
     - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 156.69156
+      objectReference: {fileID: 0}
+    - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 101.40846
+      objectReference: {fileID: 0}
+    - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 447
+      value: 238.88
       objectReference: {fileID: 0}
     - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: 1.47
       objectReference: {fileID: 0}
     - target: {fileID: 4640235910221512709, guid: 262083d5e98f7f94fa70b726131c0ffd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2003,8 +2019,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1101, y: 505}
+  m_AnchoredPosition: {x: 0.0000076293945, y: 0.00051116943}
+  m_SizeDelta: {x: 1600, y: 899.39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1834912192 stripped
 GameObject:
